@@ -18,14 +18,14 @@ const RegisterForm = () => {
     console.log(response);
   };
 
-  const requestRefresh = async () => {
-    const response = await axios.get(
-      "https://codebebop.tk/codebebopServer/auth/refresh",
-      { withCredentials: true }
-    );
+  // const requestRefresh = async () => {
+  //   const response = await axios.get(
+  //     "https://codebebop.tk/codebebopServer/auth/refresh",
+  //     { withCredentials: true }
+  //   );
 
-    console.log(response);
-  };
+  //   console.log(response);
+  // };
 
   return (
     <>
@@ -51,7 +51,7 @@ const RegisterForm = () => {
         <button>회원가입</button>
       </form>
 
-      <button onClick={requestRefresh}>Refresh로 요청</button>
+      {/* <button onClick={requestRefresh}>Refresh로 요청</button> */}
     </>
   );
 };

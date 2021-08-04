@@ -26,8 +26,8 @@ const Header = () => {
     <HeaderBlock>
       <Link to="/">홈 화면</Link>
       <div>
-        <Link to="/login">로그인</Link>
-        <Link to="/register">회원가입</Link>
+        <Link to="/auth/login">로그인</Link>
+        <Link to="/auth/register">회원가입</Link>
       </div>
     </HeaderBlock>
   );

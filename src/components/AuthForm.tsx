@@ -1,14 +1,15 @@
 import axios from "axios";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
-const LoginFieldset = styled.fieldset`
+const AuthFieldset = styled.fieldset`
   border: none;
   box-sizing: border-box;
   height: 100%;
 `;
 
-const LoginFormBlock = styled.form`
+const AuthFormBlock = styled.form`
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -33,10 +34,12 @@ const LoginFormBlock = styled.form`
   }
 `;
 
-const LoginForm = () => {
+const AuthForm = () => {
   const [id, setId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [token, setToken] = useState<string>("");
+
+  const { auth } = useParams<{ auth: "login" | "register" }>();
 
   const onLoginSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -55,9 +58,50 @@ const LoginForm = () => {
     console.log(token);
   };
 
+  const onRegisterSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const response = await axios.post(
+      "https://codebebop.tk/codebebopServer/auth/register",
+      {
+        userId: id,
+        password,
+      }
+    );
+
+    console.log(response);
+  };
+
+  if (auth === "register") {
+    return (
+      <AuthFieldset>
+        <AuthFormBlock onSubmit={onRegisterSubmit}>
+          <label htmlFor="id">아이디 </label>
+          <input
+            type="text"
+            id="id"
+            value={id}
+            onChange={(e) => {
+              setId(e.target.value);
+            }}
+          />
+          <label htmlFor="password">패스워드 </label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          <button>회원가입</button>
+        </AuthFormBlock>
+      </AuthFieldset>
+    );
+  }
+
   return (
-    <LoginFieldset>
-      <LoginFormBlock onSubmit={onLoginSubmit}>
+    <AuthFieldset>
+      <AuthFormBlock onSubmit={onLoginSubmit}>
         <label htmlFor="id">아이디 </label>
         <input
           type="text"
@@ -77,9 +121,9 @@ const LoginForm = () => {
           }}
         />
         <button>로그인</button>
-      </LoginFormBlock>
-    </LoginFieldset>
+      </AuthFormBlock>
+    </AuthFieldset>
   );
 };
 
-export default LoginForm;
+export default AuthForm;
