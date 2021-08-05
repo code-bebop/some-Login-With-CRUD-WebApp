@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -15,14 +16,50 @@ const AuthFormBlock = styled.form`
   flex-direction: column;
   justify-content: center;
   padding: 0 290px;
-  & > input {
-    height: 90px;
-    margin-bottom: 65px;
+  & > .formInner {
+    position: relative;
+    & > input {
+      height: 90px;
+      width: 100%;
+      margin-bottom: 65px;
+      border: none;
+      border-bottom: 2px solid #000;
+      outline: none;
+      line-height: 2em;
+      padding: 20px 0 5px 0;
+      font-size: 1.2em;
+      transition: all 0.2s ease;
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      &:focus,
+      &:not(:placeholder-shown) {
+        border-bottom-color: hotpink;
+      }
+      &::placeholder {
+        color: transparent;
+      }
+      &:placeholder-shown + label {
+        color: #aaa;
+        font-size: 14px;
+        top: 15px;
+      }
+    }
+    input:focus + label,
+    label {
+      color: hotpink;
+      font-size: 10pt;
+      pointer-events: none;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      transition: all 0.2s ease;
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+    }
   }
-  & > label {
-    font-size: 18px;
-    margin-bottom: 15px;
-  }
+
   & > button {
     width: 250px;
     height: 70px;
@@ -31,6 +68,7 @@ const AuthFormBlock = styled.form`
     outline: none;
     border: 1px solid #222;
     font-weight: bold;
+    cursor: pointer;
   }
 `;
 
@@ -40,6 +78,11 @@ const AuthForm = () => {
   const [token, setToken] = useState<string>("");
 
   const { auth } = useParams<{ auth: "login" | "register" }>();
+
+  useEffect(() => {
+    setId("");
+    setPassword("");
+  }, [auth]);
 
   const onLoginSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -75,25 +118,32 @@ const AuthForm = () => {
     return (
       <AuthFieldset>
         <AuthFormBlock onSubmit={onRegisterSubmit}>
-          <label htmlFor="id">아이디 </label>
-          <input
-            type="text"
-            id="id"
-            value={id}
-            onChange={(e) => {
-              setId(e.target.value);
-            }}
-          />
-          <label htmlFor="password">패스워드 </label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-          <button>회원가입</button>
+          <div className="formInner">
+            <input
+              type="text"
+              id="id"
+              placeholder="아이디"
+              value={id}
+              onChange={(e) => {
+                setId(e.target.value);
+              }}
+            />
+            <label htmlFor="id">아이디 </label>
+          </div>
+          <div className="formInner">
+            <input
+              type="password"
+              id="password"
+              placeholder="패스워드"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+            <label htmlFor="password">패스워드 </label>
+          </div>
+
+          <button>계정 만들기</button>
         </AuthFormBlock>
       </AuthFieldset>
     );
@@ -102,24 +152,31 @@ const AuthForm = () => {
   return (
     <AuthFieldset>
       <AuthFormBlock onSubmit={onLoginSubmit}>
-        <label htmlFor="id">아이디 </label>
-        <input
-          type="text"
-          id="id"
-          value={id}
-          onChange={(e) => {
-            setId(e.target.value);
-          }}
-        />
-        <label htmlFor="password">패스워드 </label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-        />
+        <div className="formInner">
+          <input
+            type="text"
+            id="id"
+            placeholder="아이디"
+            value={id}
+            onChange={(e) => {
+              setId(e.target.value);
+            }}
+          />
+          <label htmlFor="id">아이디 </label>
+        </div>
+        <div className="formInner">
+          <input
+            type="password"
+            id="password"
+            placeholder="패스워드"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          <label htmlFor="password">패스워드 </label>
+        </div>
+
         <button>로그인</button>
       </AuthFormBlock>
     </AuthFieldset>
