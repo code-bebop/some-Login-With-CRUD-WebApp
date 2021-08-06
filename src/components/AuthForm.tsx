@@ -64,11 +64,20 @@ const AuthFormBlock = styled.form`
     width: 250px;
     height: 70px;
     align-self: flex-end;
-    background-color: #fff;
     outline: none;
-    border: 1px solid #222;
+    background-color: #ff69b4;
+    border: 1px solid #ff69b4;
     font-weight: bold;
+    color: #fff;
     cursor: pointer;
+    &:hover {
+      background-color: #fd3b9c;
+      border: 1px solid #fd3b9c;
+    }
+    &:active {
+      background-color: #ff0281;
+      border: 1px solid #ff0281;
+    }
   }
 `;
 
