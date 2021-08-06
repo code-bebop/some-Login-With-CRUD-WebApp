@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const HeaderBlock = styled.header`
-  height: 100px;
   padding: 0 320px;
   display: flex;
   justify-content: space-between;
@@ -11,13 +10,24 @@ const HeaderBlock = styled.header`
   color: #fff;
   font-size: 18px;
   font-weight: bold;
+
+  & > div {
+    a {
+      &:first-child {
+        margin-right: 50px;
+      }
+    }
+  }
 `;
 
 const Header = () => {
   return (
     <HeaderBlock>
       <Link to="/">홈 화면</Link>
-      <Link to="/login">로그인</Link>
+      <div>
+        <Link to="/auth/login">로그인</Link>
+        <Link to="/auth/register">회원가입</Link>
+      </div>
     </HeaderBlock>
   );
 };
