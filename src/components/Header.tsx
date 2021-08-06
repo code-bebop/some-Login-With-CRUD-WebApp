@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const HeaderBlock = styled.header`
-  height: 10.3199%;
   padding: 0 320px;
   display: flex;
   justify-content: space-between;

@@ -4,10 +4,17 @@ import "./nomarlize.css";
 import MainPage from "./pages/MainPage";
 import ContentWrapper from "./components/ContentWrapper";
 import LoginPage from "./pages/AuthPage";
+import styled from "styled-components";
+
+const AppBlock = styled.div`
+  height: 100%;
+  display: grid;
+  grid-template-rows: 100px 1fr;
+`;
 
 const App = () => {
   return (
-    <>
+    <AppBlock>
       <Header />
       <ContentWrapper>
         <Switch>
@@ -16,7 +23,7 @@ const App = () => {
           <Redirect to="/" />
         </Switch>
       </ContentWrapper>
-    </>
+    </AppBlock>
   );
 };
 
