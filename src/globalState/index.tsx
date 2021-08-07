@@ -6,6 +6,7 @@ type LoginStateT = {
 };
 type LoginActionT = {
   type: "SET_TOKEN";
+  accessToken: string;
 };
 
 const initialState: LoginStateT = {
@@ -15,7 +16,7 @@ const initialState: LoginStateT = {
 const loginReducer = (state: LoginStateT, action: LoginActionT) => {
   switch (action.type) {
     case "SET_TOKEN":
-      return { accessToken: "TEMP_TOKEN" };
+      return { accessToken: action.accessToken };
     default:
       throw new Error("invalid action type");
   }

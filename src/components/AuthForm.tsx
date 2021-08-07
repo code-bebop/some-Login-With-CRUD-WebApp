@@ -1,8 +1,9 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { loginDispatchContext } from "../globalState";
 
 const AuthFieldset = styled.fieldset`
   border: none;
@@ -84,9 +85,11 @@ const AuthFormBlock = styled.form`
 const AuthForm = () => {
   const [id, setId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [token, setToken] = useState<string>("");
 
   const { auth } = useParams<{ auth: "login" | "register" }>();
+
+  const loginDispatch = useContext(loginDispatchContext);
+  if (!loginDispatch) throw new Error("dispatch is null");
 
   useEffect(() => {
     setId("");
@@ -95,19 +98,19 @@ const AuthForm = () => {
 
   const onLoginSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const response = await axios.post<{ accessToken: string }>(
-      "https://codebebop.tk/codebebopServer/auth/login",
-      {
-        userId: id,
-        password,
-        automaticLogin: true,
-      },
-      { withCredentials: true }
-    );
+    // const response = await axios.post<{ accessToken: string }>(
+    //   "https://codebebop.tk/codebebopServer/auth/login",
+    //   {
+    //     userId: id,
+    //     password,
+    //     automaticLogin: true,
+    //   },
+    //   { withCredentials: true }
+    // );
 
-    setToken(response.data.accessToken);
+    loginDispatch({ type: "SET_TOKEN", accessToken: "TEMP_TOKEN" });
 
-    console.log(token);
+    // console.log(response.data.accessToken);
   };
 
   const onRegisterSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
