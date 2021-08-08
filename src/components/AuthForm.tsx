@@ -1,9 +1,9 @@
 import axios from "axios";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { loginDispatchContext } from "../globalState";
+import { useLoginDispatch } from "../globalState";
 
 const AuthFieldset = styled.fieldset`
   border: none;
@@ -88,8 +88,8 @@ const AuthForm = () => {
 
   const { auth } = useParams<{ auth: "login" | "register" }>();
 
-  const loginDispatch = useContext(loginDispatchContext);
-  if (!loginDispatch) throw new Error("dispatch is null");
+  const history = useHistory();
+  const loginDispatch = useLoginDispatch();
 
   useEffect(() => {
     setId("");
@@ -109,6 +109,7 @@ const AuthForm = () => {
     // );
 
     loginDispatch({ type: "SET_TOKEN", accessToken: "TEMP_TOKEN" });
+    history.push("/Home");
 
     // console.log(response.data.accessToken);
   };

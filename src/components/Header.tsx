@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useLoginDispatch, useLoginState } from "../globalState";
 
 const HeaderBlock = styled.header`
   padding: 0 320px;
@@ -11,6 +12,14 @@ const HeaderBlock = styled.header`
   font-size: 18px;
   font-weight: bold;
 
+  button {
+    border: none;
+    background-color: transparent;
+    color: inherit;
+    font-weight: inherit;
+    cursor: pointer;
+  }
+
   & > div {
     a {
       &:first-child {
@@ -21,13 +30,26 @@ const HeaderBlock = styled.header`
 `;
 
 const Header = () => {
+  const loginState = useLoginState();
+  const loginDispatch = useLoginDispatch();
+
   return (
     <HeaderBlock>
       <Link to="/">홈 화면</Link>
-      <div>
-        <Link to="/auth/login">로그인</Link>
-        <Link to="/auth/register">회원가입</Link>
-      </div>
+      {loginState.accessToken ? (
+        <button
+          onClick={() => {
+            loginDispatch({ type: "SET_TOKEN", accessToken: "" });
+          }}
+        >
+          로그아웃
+        </button>
+      ) : (
+        <div>
+          <Link to="/auth/login">로그인</Link>
+          <Link to="/auth/register">회원가입</Link>
+        </div>
+      )}
     </HeaderBlock>
   );
 };
