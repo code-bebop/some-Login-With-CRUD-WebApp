@@ -85,6 +85,7 @@ const AuthFormBlock = styled.form`
 const AuthForm = () => {
   const [id, setId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [autoLogin, setAutoLogin] = useState<Boolean>(false);
 
   const { auth } = useParams<{ auth: "login" | "register" }>();
 
@@ -103,7 +104,7 @@ const AuthForm = () => {
       {
         userId: id,
         password,
-        automaticLogin: true,
+        automaticLogin: autoLogin,
       },
       { withCredentials: true }
     );
@@ -128,6 +129,10 @@ const AuthForm = () => {
     );
 
     console.log(response);
+  };
+
+  const onAutoLogin = () => {
+    setAutoLogin(!autoLogin);
   };
 
   if (auth === "register") {
@@ -194,6 +199,14 @@ const AuthForm = () => {
         </div>
 
         <button>로그인</button>
+        <input
+          type="checkbox"
+          name="autoLogin"
+          value="autoLogin"
+          id="autoLogin"
+          onChange={onAutoLogin}
+        />
+        <label htmlFor="autoLogin">자동 로그인</label>
       </AuthFormBlock>
     </AuthFieldset>
   );
