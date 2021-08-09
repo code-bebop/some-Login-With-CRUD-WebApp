@@ -98,20 +98,23 @@ const AuthForm = () => {
 
   const onLoginSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // const response = await axios.post<{ accessToken: string }>(
-    //   "https://codebebop.tk/codebebopServer/auth/login",
-    //   {
-    //     userId: id,
-    //     password,
-    //     automaticLogin: true,
-    //   },
-    //   { withCredentials: true }
-    // );
+    const response = await axios.post<{ accessToken: string }>(
+      "https://codebebop.tk/codebebopServer/auth/login",
+      {
+        userId: id,
+        password,
+        automaticLogin: true,
+      },
+      { withCredentials: true }
+    );
 
-    loginDispatch({ type: "SET_TOKEN", accessToken: "TEMP_TOKEN" });
+    loginDispatch({
+      type: "SET_TOKEN",
+      accessToken: response.data.accessToken,
+    });
     history.push("/Home");
 
-    // console.log(response.data.accessToken);
+    console.log(response.data.accessToken);
   };
 
   const onRegisterSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
