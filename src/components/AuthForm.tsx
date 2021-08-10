@@ -61,23 +61,48 @@ const AuthFormBlock = styled.form`
     }
   }
 
-  & > button {
-    width: 250px;
-    height: 70px;
+  & > .formButtonWrapper {
     align-self: flex-end;
-    outline: none;
-    background-color: #ff69b4;
-    border: 1px solid #ff69b4;
-    font-weight: bold;
-    color: #fff;
-    cursor: pointer;
-    &:hover {
-      background-color: #fd3b9c;
-      border: 1px solid #fd3b9c;
+    user-select: none;
+    & > button {
+      width: 250px;
+      height: 70px;
+      outline: none;
+      background-color: #ff69b4;
+      border: 1px solid #ff69b4;
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+      &:hover {
+        background-color: #fd3b9c;
+        border: 1px solid #fd3b9c;
+      }
+      &:active {
+        background-color: #ff0281;
+        border: 1px solid #ff0281;
+      }
     }
-    &:active {
-      background-color: #ff0281;
-      border: 1px solid #ff0281;
+
+    & > label {
+      align-self: flex-end;
+      cursor: pointer;
+      font-weight: bold;
+      & > input[type="checkbox"] {
+        display: none;
+        &:checked + label {
+          background-color: #ff0281;
+        }
+      }
+      & > label {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin-left: 10px;
+        margin-right: 50px;
+        border: 2px solid #ff69b4;
+        cursor: pointer;
+        vertical-align: -0.35em;
+      }
     }
   }
 `;
@@ -85,6 +110,7 @@ const AuthFormBlock = styled.form`
 const AuthForm = () => {
   const [id, setId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [autoLogin, setAutoLogin] = useState<Boolean>(false);
 
   const { auth } = useParams<{ auth: "login" | "register" }>();
 
@@ -103,7 +129,7 @@ const AuthForm = () => {
       {
         userId: id,
         password,
-        automaticLogin: true,
+        automaticLogin: autoLogin,
       },
       { withCredentials: true }
     );
@@ -128,6 +154,10 @@ const AuthForm = () => {
     );
 
     console.log(response);
+  };
+
+  const onAutoLogin = () => {
+    setAutoLogin(!autoLogin);
   };
 
   if (auth === "register") {
@@ -159,7 +189,9 @@ const AuthForm = () => {
             <label htmlFor="password">패스워드 </label>
           </div>
 
-          <button>계정 만들기</button>
+          <div className="formButtonWrapper">
+            <button>계정 만들기</button>
+          </div>
         </AuthFormBlock>
       </AuthFieldset>
     );
@@ -193,7 +225,20 @@ const AuthForm = () => {
           <label htmlFor="password">패스워드 </label>
         </div>
 
-        <button>로그인</button>
+        <div className="formButtonWrapper">
+          <label htmlFor="autoLogin">
+            자동 로그인
+            <input
+              type="checkbox"
+              name="autoLogin"
+              value="autoLogin"
+              id="autoLogin"
+              onChange={onAutoLogin}
+            />{" "}
+            <label htmlFor="autoLogin" />
+          </label>
+          <button>로그인</button>
+        </div>
       </AuthFormBlock>
     </AuthFieldset>
   );

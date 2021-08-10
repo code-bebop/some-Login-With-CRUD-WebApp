@@ -5,7 +5,7 @@ import MainPage from "./pages/MainPage";
 import ContentWrapper from "./components/ContentWrapper";
 import LoginPage from "./pages/AuthPage";
 import styled from "styled-components";
-import LoginProvider from "./globalState";
+import useRefresh from "./utils/useRefresh";
 
 const AppBlock = styled.div`
   height: 100%;
@@ -14,19 +14,19 @@ const AppBlock = styled.div`
 `;
 
 const App = () => {
+  useRefresh();
+
   return (
-    <LoginProvider>
-      <AppBlock>
-        <Header />
-        <ContentWrapper>
-          <Switch>
-            <Route path="/auth/:auth" component={LoginPage} exact />
-            <Route path="/" component={MainPage} exact />
-            <Redirect to="/" />
-          </Switch>
-        </ContentWrapper>
-      </AppBlock>
-    </LoginProvider>
+    <AppBlock>
+      <Header />
+      <ContentWrapper>
+        <Switch>
+          <Route path="/auth/:auth" component={LoginPage} exact />
+          <Route path="/" component={MainPage} exact />
+          <Redirect to="/" />
+        </Switch>
+      </ContentWrapper>
+    </AppBlock>
   );
 };
 
