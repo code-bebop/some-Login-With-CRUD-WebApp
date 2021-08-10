@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useLoginDispatch, useLoginState } from "../globalState";
@@ -40,6 +41,11 @@ const Header = () => {
         <button
           onClick={() => {
             loginDispatch({ type: "SET_TOKEN", accessToken: "" });
+            axios.post(
+              "https://codebebop.tk/codebebopServer/auth/logout",
+              null,
+              { withCredentials: true }
+            );
           }}
         >
           로그아웃
