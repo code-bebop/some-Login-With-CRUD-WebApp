@@ -3,11 +3,14 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import LoginProvider from "./globalState";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <LoginProvider>
+        <App />
+      </LoginProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
