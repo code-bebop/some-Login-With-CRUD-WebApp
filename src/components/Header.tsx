@@ -8,6 +8,7 @@ const HeaderBlock = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  user-select: none;
   background-color: #222;
   color: #fff;
   font-size: 18px;
