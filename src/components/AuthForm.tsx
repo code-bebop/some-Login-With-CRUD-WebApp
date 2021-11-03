@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useLoginDispatch } from "../globalState";
 
 const AuthFieldset = styled.fieldset`
@@ -11,11 +11,12 @@ const AuthFieldset = styled.fieldset`
   height: 100%;
 `;
 
-const AuthFormBlock = styled.form`
+const AuthFormBlock = styled.form<{ authError: "login" | "register" | null }>`
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  user-select: none;
   padding: 0 290px;
   & > .formInner {
     position: relative;
@@ -105,12 +106,32 @@ const AuthFormBlock = styled.form`
       }
     }
   }
+
+  ${({ authError }) =>
+    authError &&
+    css`
+      .formInner {
+        &:not(:first-child) {
+          color: red;
+          &::before {
+            content: ${() =>
+              authError === "login"
+                ? `"아이디 혹은 비밀번호가 일치하지 않습니다."`
+                : `"이미 존재하는 아이디입니다."`};
+            display: inline;
+            position: absolute;
+            bottom: 15px;
+          }
+        }
+      }
+    `}
 `;
 
 const AuthForm = () => {
   const [id, setId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [autoLogin, setAutoLogin] = useState<Boolean>(false);
+  const [authError, setAuthError] = useState<"login" | "register" | null>(null);
 
   const { auth } = useParams<{ auth: "login" | "register" }>();
 
@@ -139,10 +160,12 @@ const AuthForm = () => {
         type: "SET_TOKEN",
         accessToken: response.data.accessToken,
       });
+      setAuthError(null);
       history.push("/Home");
 
       console.log(response.data.accessToken);
     } catch (error) {
+      setAuthError("login");
       console.log(error);
     }
   };
@@ -158,8 +181,10 @@ const AuthForm = () => {
         }
       );
 
+      setAuthError(null);
       console.log(response);
     } catch (error) {
+      setAuthError("register");
       console.log(error);
     }
   };
@@ -171,7 +196,7 @@ const AuthForm = () => {
   if (auth === "register") {
     return (
       <AuthFieldset>
-        <AuthFormBlock onSubmit={onRegisterSubmit}>
+        <AuthFormBlock onSubmit={onRegisterSubmit} authError={authError}>
           <div className="formInner">
             <input
               type="text"
@@ -207,7 +232,7 @@ const AuthForm = () => {
 
   return (
     <AuthFieldset>
-      <AuthFormBlock onSubmit={onLoginSubmit}>
+      <AuthFormBlock onSubmit={onLoginSubmit} authError={authError}>
         <div className="formInner">
           <input
             type="text"
