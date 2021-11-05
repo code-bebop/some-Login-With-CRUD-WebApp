@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { useLoginDispatch } from "../globalState";
+import { useCookies } from "react-cookie";
 
 const AuthFieldset = styled.fieldset`
   border: none;
@@ -136,6 +137,7 @@ const AuthForm = () => {
   const { auth } = useParams<{ auth: "login" | "register" }>();
 
   const history = useHistory();
+  const [cookies, setCookie] = useCookies(["refreshToken"]);
   const loginDispatch = useLoginDispatch();
 
   useEffect(() => {
@@ -146,7 +148,10 @@ const AuthForm = () => {
   const onLoginSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post<{ accessToken: string }>(
+      const response = await axios.post<{
+        accessToken: string;
+        refreshToken: string;
+      }>(
         "https://codebebop.tk/codebebopServer/auth/login",
         {
           userId: id,
@@ -160,6 +165,7 @@ const AuthForm = () => {
         type: "SET_TOKEN",
         accessToken: response.data.accessToken,
       });
+      setCookie("refreshToken", response.data.refreshToken);
       setAuthError(null);
       history.push("/Home");
 
