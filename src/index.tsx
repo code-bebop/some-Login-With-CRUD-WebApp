@@ -4,14 +4,17 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import LoginProvider from "./globalState";
+import { CookiesProvider } from "react-cookie";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <LoginProvider>
-        <App />
-      </LoginProvider>
-    </BrowserRouter>
+    <CookiesProvider>
+      <BrowserRouter>
+        <LoginProvider>
+          <App />
+        </LoginProvider>
+      </BrowserRouter>
+    </CookiesProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
