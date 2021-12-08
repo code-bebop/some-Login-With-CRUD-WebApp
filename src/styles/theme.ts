@@ -2,28 +2,30 @@ const color = {
   primary: {
     white: "#EEEEEE",
     black: "#24292E",
-    highlight: "#FF69B4",
+    default: "#FF69B4",
+    dark: "#FD3B9C",
+    deep: "#FF0281",
   },
 };
 
 const typo = {
   title1: {
-    bold: `fontSize: 24px,
-                fontWeight: bold`,
-    regular: `fontSize: 24px,
-                fontWeight: regular`,
+    bold: `font-size: 24px;
+              font-weight: bold;`,
+    regular: `font-size: 24px;
+              font-weight: regular;`,
   },
   button: {
-    bold: `fontSize: 18px,
-                fontWeight: bold`,
-    regular: `fontSize: 18px,
-                fontWeight: regular`,
+    bold: `font-size: 18px;
+              font-weight: bold;`,
+    regular: `font-size: 18px;
+              font-weight: regular;`,
   },
   body: {
-    bold: `fontSize: 14px,
-                fontWeight: bold`,
-    regular: `fontSize: 14px,
-                fontWeight: regular`,
+    bold: `font-size: 14px;
+                font-weight: bold;`,
+    regular: `font-size: 14px;
+              font-weight: regular;`,
   },
 };
 
