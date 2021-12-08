@@ -18,7 +18,7 @@ const AuthFormBlock = styled.form<{ authError: "login" | "register" | null }>`
       outline: none;
       line-height: 2em;
       padding: 20px 0 5px 0;
-      font-size: 1.2em;
+      font-size: 18px;
       transition: all 0.2s ease;
       -webkit-transition: all 0.2s ease;
       -moz-transition: all 0.2s ease;
@@ -39,7 +39,7 @@ const AuthFormBlock = styled.form<{ authError: "login" | "register" | null }>`
     input:focus + label,
     label {
       color: ${({ theme }) => theme.color.primary.default};
-      font-size: 10pt;
+      font-size: 10px;
       pointer-events: none;
       position: absolute;
       left: 0px;
@@ -60,8 +60,8 @@ const AuthFormBlock = styled.form<{ authError: "login" | "register" | null }>`
       outline: none;
       background-color: ${({ theme }) => theme.color.primary.default};
       border: 1px solid ${({ theme }) => theme.color.primary.default};
-      font-weight: bold;
       color: ${({ theme }) => theme.color.primary.white};
+      ${({ theme }) => theme.typo.button.bold};
       cursor: pointer;
       &:hover {
         background-color: ${({ theme }) => theme.color.primary.deep};
@@ -76,7 +76,7 @@ const AuthFormBlock = styled.form<{ authError: "login" | "register" | null }>`
     & > label {
       align-self: flex-end;
       cursor: pointer;
-      font-weight: bold;
+      ${({ theme }) => theme.typo.body.bold};
       & > input[type="checkbox"] {
         display: none;
         &:checked + label {
