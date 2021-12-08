@@ -9,10 +9,9 @@ const HeaderBlock = styled.header`
   justify-content: space-between;
   align-items: center;
   user-select: none;
-  background-color: #222;
-  color: #fff;
-  font-size: 18px;
-  font-weight: bold;
+  background-color: ${({ theme }) => theme.color.primary.black};
+  color: ${({ theme }) => theme.color.primary.white};
+  ${({ theme }) => theme.typo.title1.bold};
 
   button {
     border: none;

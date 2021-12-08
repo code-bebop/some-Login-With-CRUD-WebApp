@@ -14,11 +14,11 @@ const AuthFormBlock = styled.form<{ authError: "login" | "register" | null }>`
       width: 100%;
       margin-bottom: 65px;
       border: none;
-      border-bottom: 2px solid #000;
+      border-bottom: 2px solid ${({ theme }) => theme.color.primary.black};
       outline: none;
       line-height: 2em;
       padding: 20px 0 5px 0;
-      font-size: 1.2em;
+      font-size: 18px;
       transition: all 0.2s ease;
       -webkit-transition: all 0.2s ease;
       -moz-transition: all 0.2s ease;
@@ -38,8 +38,8 @@ const AuthFormBlock = styled.form<{ authError: "login" | "register" | null }>`
     }
     input:focus + label,
     label {
-      color: hotpink;
-      font-size: 10pt;
+      color: ${({ theme }) => theme.color.primary.default};
+      font-size: 10px;
       pointer-events: none;
       position: absolute;
       left: 0px;
@@ -58,29 +58,29 @@ const AuthFormBlock = styled.form<{ authError: "login" | "register" | null }>`
       width: 250px;
       height: 70px;
       outline: none;
-      background-color: #ff69b4;
-      border: 1px solid #ff69b4;
-      font-weight: bold;
-      color: #fff;
+      background-color: ${({ theme }) => theme.color.primary.default};
+      border: 1px solid ${({ theme }) => theme.color.primary.default};
+      color: ${({ theme }) => theme.color.primary.white};
+      ${({ theme }) => theme.typo.button.bold};
       cursor: pointer;
       &:hover {
-        background-color: #fd3b9c;
-        border: 1px solid #fd3b9c;
+        background-color: ${({ theme }) => theme.color.primary.deep};
+        border: ${({ theme }) => theme.color.primary.deep};
       }
       &:active {
-        background-color: #ff0281;
-        border: 1px solid #ff0281;
+        background-color: ${({ theme }) => theme.color.primary.dark};
+        border: 1px solid ${({ theme }) => theme.color.primary.dark};
       }
     }
 
     & > label {
       align-self: flex-end;
       cursor: pointer;
-      font-weight: bold;
+      ${({ theme }) => theme.typo.body.bold};
       & > input[type="checkbox"] {
         display: none;
         &:checked + label {
-          background-color: #ff0281;
+          background-color: ${({ theme }) => theme.color.primary.dark};
         }
       }
       & > label {
@@ -89,7 +89,7 @@ const AuthFormBlock = styled.form<{ authError: "login" | "register" | null }>`
         height: 20px;
         margin-left: 10px;
         margin-right: 50px;
-        border: 2px solid #ff69b4;
+        border: 2px solid ${({ theme }) => theme.color.primary.default};
         cursor: pointer;
         vertical-align: -0.35em;
       }

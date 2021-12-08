@@ -5,16 +5,20 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import LoginProvider from "./globalState";
 import { CookiesProvider } from "react-cookie";
+import { ThemeProvider } from "styled-components";
+import theme from "./styles/theme";
 
 ReactDOM.render(
   <React.StrictMode>
-    <CookiesProvider>
-      <BrowserRouter>
-        <LoginProvider>
-          <App />
-        </LoginProvider>
-      </BrowserRouter>
-    </CookiesProvider>
+    <ThemeProvider theme={theme}>
+      <CookiesProvider>
+        <BrowserRouter>
+          <LoginProvider>
+            <App />
+          </LoginProvider>
+        </BrowserRouter>
+      </CookiesProvider>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
